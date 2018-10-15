@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use BreiteSeite\CodingChallenge\SynergistIO\Application\Command\ResolveAddressCommand;
 
-error_reporting(-1);
-
 require __DIR__ . '/../vendor/autoload.php';
 
 const EXIT_UNKNOWN_ERROR = -1;
