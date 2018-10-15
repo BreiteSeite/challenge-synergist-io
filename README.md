@@ -19,6 +19,8 @@ see [CHALLENGE.md](CHALLENGE.md)
 run `docker-compose run php composer check` for more sophisticated checks
 
 ## TODOs
+* don't have the domain layer use the Infrastructure/JsonClient. domain layer must provide an interface that is
+implemented by the infrastructure layer, not vice-versa.
 * improve test coverage of domain code
 * add tests for infrastructure code
 * abstract all web-requests through a generic HttpClient interface to better decouple specific client
