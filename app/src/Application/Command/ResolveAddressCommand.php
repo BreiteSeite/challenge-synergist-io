@@ -43,7 +43,6 @@ final class ResolveAddressCommand
     {
         if (false === getenv(self::ENV_VAR_GOOGLE_GEOCODING_API_KEY)) {
             $this->writeStderr('Set env "APIKEY_GOOGLE_GEOCODING" with your API key to use this program');
-            $this->writeStderr(PHP_EOL);
 
             return self::EXIT_MISSING_ENV_CONFIG;
         }
@@ -67,7 +66,22 @@ final class ResolveAddressCommand
         $geocode = new Geocode($jsonClient);
 
 
-        $this->writeStdout(print_r($geocode->resolveLocation($addressInput), true));
+        $locations = $geocode->resolveLocation($addressInput);
+        $this->writeStdout(sprintf('%d locations found', \count($locations)));
+
+        foreach ($locations as $locationPosition => $location) {
+            $this->writeStdout(sprintf('######### Location %d:', $locationPosition));
+            $this->writeStdout(PHP_EOL);
+
+            $this->writeStdout(sprintf('Country: %s', $location->country() ?? 'N/A'));
+            $this->writeStdout(sprintf('State: %s', $location->state() ?? 'N/A'));
+            $this->writeStdout(sprintf('County: %s', $location->country() ?? 'N/A'));
+            $this->writeStdout(sprintf('Zip: %s', $location->postCode() ?? 'N/A'));
+            $this->writeStdout(sprintf('City: %s', $location->city() ?? 'N/A'));
+            $this->writeStdout(sprintf('Route: %s', $location->route() ?? 'N/A'));
+            $this->writeStdout(sprintf('Street number: %s', $location->streetNumber() ?? 'N/A'));
+            $this->writeStdout(sprintf('Street address: %s', $location->streetAddress() ?? 'N/A'));
+        }
 
         return self::EXIT_SUCCESS;
     }
@@ -75,16 +89,18 @@ final class ResolveAddressCommand
     private function printUsage(): void
     {
         $this->writeStderr('Usage: maps.php <address>');
-        $this->writeStderr(PHP_EOL);
     }
 
     private function writeStdout(string $text): void
     {
         fwrite($this->stdout, $text);
+        fwrite($this->stdout, PHP_EOL);
     }
 
     private function writeStderr(string $text): void
     {
         fwrite($this->stderr, $text);
+        fwrite($this->stderr, PHP_EOL);
+
     }
 }
