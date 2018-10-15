@@ -9,7 +9,7 @@ final class GeocodeTest extends \PHPUnit\Framework\TestCase
 {
     private $client;
 
-    public function testClientReturnsStreet()
+    public function testClientReturnsStreet(): void
     {
         $this->client->sendRequest('')->willReturn([
             [

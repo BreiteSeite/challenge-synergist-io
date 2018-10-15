@@ -47,6 +47,10 @@ class JsonClient
             }
         }
 
+        if (isset($response['results'])) {
+            return $response['results'];
+        }
+
         throw new RuntimeException('Invalid response (missing status)');
     }
 }
