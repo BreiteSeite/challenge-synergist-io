@@ -23,7 +23,7 @@ for inspiration (can not use the package due to challenge requirements: no libra
 * add more phpdoc and general documentation
 * double-check for consistent wording "location" vs. "address"
 * add factories and maybe even a slim dependency container to decouple object creation from object use
-* create a multi-stage Docker-file for production (without xdebug) and development container
+* create a multi-stage Docker-file for production (without xdebug and php.ini.production) and development container
 * add some .idea files for consistent settings across multiple-developer
 * add continuous integration with CircleCI or similar
 * check for content-type header before calling json_decode against http-payload
