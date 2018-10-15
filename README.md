@@ -27,5 +27,5 @@ for inspiration (can not use the package due to challenge requirements: no libra
 * add some .idea files for consistent settings across multiple-developer
 * add continuous integration with CircleCI or similar
 * check for content-type header before calling json_decode against http-payload
-* much more static code-analysis (phan/phstan/exakt, `composer validate`, ...)
+* much more static code-analysis (phan/phstan/exakt, `composer validate`, hadolint, ...)
 * add mutation testing (infection)
