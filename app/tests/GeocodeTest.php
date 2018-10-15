@@ -29,6 +29,6 @@ final class GeocodeTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->client = $this->prophesize(Geocode\Client\JsonClient::class);
+        $this->client = $this->prophesize(\BreiteSeite\CodingChallenge\SynergistIO\Infrastructure\Google\Geocode\Client\JsonClient::class);
     }
 }

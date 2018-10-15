@@ -6,11 +6,11 @@ namespace BreiteSeite\CodingChallenge\SynergistIO\Domain\Location\Resolver\Googl
 use BreiteSeite\CodingChallenge\SynergistIO\Domain\Location\LocationInformation;
 use BreiteSeite\CodingChallenge\SynergistIO\Domain\Location\LocationInformationContainer;
 use BreiteSeite\CodingChallenge\SynergistIO\Domain\Location\Resolver;
-use BreiteSeite\CodingChallenge\SynergistIO\Domain\Location\Resolver\Google\Geocode\Client\JsonClient;
+use BreiteSeite\CodingChallenge\SynergistIO\Infrastructure\Google\Geocode\Client\JsonClient;
 
 final class Geocode implements Resolver
 {
-    /** @var JsonClient */
+    /** @var \BreiteSeite\CodingChallenge\SynergistIO\Infrastructure\Google\Geocode\Client\JsonClient */
     private $jsonClient;
 
     /**

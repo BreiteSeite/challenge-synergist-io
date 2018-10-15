@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use BreiteSeite\CodingChallenge\SynergistIO\Domain\Location\Resolver\Google\Geocode;
-use BreiteSeite\CodingChallenge\SynergistIO\Domain\Location\Resolver\Google\Geocode\Client\JsonClient;
+use BreiteSeite\CodingChallenge\SynergistIO\Infrastructure\Google\Geocode\Client\JsonClient;
 
 error_reporting(-1);
 
