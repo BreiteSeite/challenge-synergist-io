@@ -13,6 +13,11 @@ see [CHALLENGE.md](CHALLENGE.md)
 ## Usage
 `docker-compose run -e APIKEY_GOOGLE_GEOCODING="YOUR_GOOGLE_GEOCODING_API_KEY_HERE" php bin/maps.php "YOUR ADDRESS QUERY HERE"`
 
+## Tests
+`docker-compose run php composer test`
+
+run `docker-compose run php composer check` for more sophisticated checks
+
 ## TODOs
 * improve test coverage of domain code
 * add tests for infrastructure code
@@ -24,7 +29,7 @@ for inspiration (can not use the package due to challenge requirements: no libra
 * double-check for consistent wording "location" vs. "address"
 * add factories and maybe even a slim dependency container to decouple object creation from object use
 * create a multi-stage Docker-file for production (without xdebug and php.ini.production) and development container
-* add some .idea files for consistent settings across multiple-developer
+* add selected .idea files for consistent settings across multiple-developer
 * add continuous integration with CircleCI or similar
 * check for content-type header before calling json_decode against http-payload
 * much more static code-analysis
