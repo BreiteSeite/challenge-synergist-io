@@ -2,50 +2,37 @@
 <?php
 declare(strict_types=1);
 
-use BreiteSeite\CodingChallenge\SynergistIO\Domain\Location\Resolver\Google\Geocode;
-use BreiteSeite\CodingChallenge\SynergistIO\Infrastructure\Google\Geocode\Client\JsonClient;
+use BreiteSeite\CodingChallenge\SynergistIO\Application\Command\ResolveAddressCommand;
 
 error_reporting(-1);
 
 require __DIR__ . '/../vendor/autoload.php';
 
-const ENV_VAR_GOOGLE_GEOCODING_API_KEY = 'APIKEY_GOOGLE_GEOCODING';
-const EXIT_SUCCESS = 0;
-const EXIT_MISSING_ENV_CONFIG = 1;
-const EXIT_INVALID_USAGE = 2;
+const EXIT_UNKNOWN_ERROR = -1;
+const EXIT_CANNOT_OPEN_STREAMS = -2;
 
-$exitCode = (function (array $cliArguments): int {
-    if (false === getenv(ENV_VAR_GOOGLE_GEOCODING_API_KEY)) {
-        echo 'Set env "APIKEY_GOOGLE_GEOCODING" with your API key to use this program';
-        echo PHP_EOL;
+// use anonymous function to prevent polluting global scope
+$exitCode = (function (array $cliArguments): int
+{
+    $stdout = fopen('php://stdout', 'wb+');
+    try {
+        $stderr = fopen('php://stderr', 'wb+');
+        try {
+            if (false === $stdout || false === $stderr) {
+                echo 'Could not open stdout/stderr stream';
+                return EXIT_CANNOT_OPEN_STREAMS;
+            }
 
-        return EXIT_MISSING_ENV_CONFIG;
+            $resolveAddressCommand = new ResolveAddressCommand($stdout, $stderr);
+            return $resolveAddressCommand->execute($cliArguments);
+        } finally {
+            fclose($stderr);
+        }
+    } finally {
+        fclose($stdout);
     }
 
-    $printUsage = function (): int {
-        echo 'Usage: maps.php <address>';
-        echo PHP_EOL;
-
-        return EXIT_INVALID_USAGE;
-    };
-
-    if (!isset($cliArguments[1])) {
-        return $printUsage();
-    }
-
-    if (count($cliArguments) > 2) {
-        return $printUsage();
-    }
-
-    $addressInput = $cliArguments[1];
-
-    $jsonClient = new JsonClient(getenv(ENV_VAR_GOOGLE_GEOCODING_API_KEY));
-    $geocode = new Geocode($jsonClient);
-
-
-    var_dump($geocode->resolveLocation($addressInput));
-
-    return EXIT_SUCCESS;
+    return EXIT_UNKNOWN_ERROR;
 })($argv);
 
 exit($exitCode);
