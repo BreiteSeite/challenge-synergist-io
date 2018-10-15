@@ -42,7 +42,7 @@ final class ResolveAddressCommand
     public function execute(array $cliArguments): int
     {
         if (false === getenv(self::ENV_VAR_GOOGLE_GEOCODING_API_KEY)) {
-            $this->writeStderr('Set env "APIKEY_GOOGLE_GEOCODING" with your API key to use this program');
+            $this->writeLnStderr('Set env "APIKEY_GOOGLE_GEOCODING" with your API key to use this program');
 
             return self::EXIT_MISSING_ENV_CONFIG;
         }
@@ -67,20 +67,20 @@ final class ResolveAddressCommand
 
 
         $locations = $geocode->resolveLocation($addressInput);
-        $this->writeStdout(sprintf('%d locations found', \count($locations)));
+        $this->writeLnStdout(sprintf('%d locations found', \count($locations)));
 
         foreach ($locations as $locationPosition => $location) {
-            $this->writeStdout(sprintf('######### Location %d:', $locationPosition));
-            $this->writeStdout(PHP_EOL);
+            $this->writeLnStdout(sprintf('######### Location %d:', $locationPosition));
+            $this->writeLnStdout(PHP_EOL);
 
-            $this->writeStdout(sprintf('Country: %s', $location->country() ?? 'N/A'));
-            $this->writeStdout(sprintf('State: %s', $location->state() ?? 'N/A'));
-            $this->writeStdout(sprintf('County: %s', $location->country() ?? 'N/A'));
-            $this->writeStdout(sprintf('Zip: %s', $location->postCode() ?? 'N/A'));
-            $this->writeStdout(sprintf('City: %s', $location->city() ?? 'N/A'));
-            $this->writeStdout(sprintf('Route: %s', $location->route() ?? 'N/A'));
-            $this->writeStdout(sprintf('Street number: %s', $location->streetNumber() ?? 'N/A'));
-            $this->writeStdout(sprintf('Street address: %s', $location->streetAddress() ?? 'N/A'));
+            $this->writeLnStdout(sprintf('Country: %s', $location->country() ?? 'N/A'));
+            $this->writeLnStdout(sprintf('State: %s', $location->state() ?? 'N/A'));
+            $this->writeLnStdout(sprintf('County: %s', $location->country() ?? 'N/A'));
+            $this->writeLnStdout(sprintf('Zip: %s', $location->postCode() ?? 'N/A'));
+            $this->writeLnStdout(sprintf('City: %s', $location->city() ?? 'N/A'));
+            $this->writeLnStdout(sprintf('Route: %s', $location->route() ?? 'N/A'));
+            $this->writeLnStdout(sprintf('Street number: %s', $location->streetNumber() ?? 'N/A'));
+            $this->writeLnStdout(sprintf('Street address: %s', $location->streetAddress() ?? 'N/A'));
         }
 
         return self::EXIT_SUCCESS;
@@ -88,16 +88,16 @@ final class ResolveAddressCommand
 
     private function printUsage(): void
     {
-        $this->writeStderr('Usage: maps.php <address>');
+        $this->writeLnStderr('Usage: maps.php <address>');
     }
 
-    private function writeStdout(string $text): void
+    private function writeLnStdout(string $text): void
     {
         fwrite($this->stdout, $text);
         fwrite($this->stdout, PHP_EOL);
     }
 
-    private function writeStderr(string $text): void
+    private function writeLnStderr(string $text): void
     {
         fwrite($this->stderr, $text);
         fwrite($this->stderr, PHP_EOL);
