@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace BreiteSeite\CodingChallenge\SynergistIOTests\Domain\Location\Resolver\Google;
+
 use BreiteSeite\CodingChallenge\SynergistIO\Domain\Location\Resolver\Google\Geocode;
 
 final class GeocodeTest extends \PHPUnit\Framework\TestCase
